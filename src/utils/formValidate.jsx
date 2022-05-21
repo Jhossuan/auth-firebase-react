@@ -2,7 +2,7 @@ export const formValidate = () => {
   return {
     required: {
         value: true,
-        message: 'Obligatory field'
+        message: 'Campo obligatorio'
       },
       patternEmail: {
         value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -10,7 +10,7 @@ export const formValidate = () => {
       },
       minLength: {
         value: 6,
-        message: 'Min 6 characters'
+        message: 'Minimo 6 caracteres'
       },
       validateTrim: {
         trim: (v) => {
@@ -21,7 +21,7 @@ export const formValidate = () => {
       validateEquals(values) {
         return{
             equals: 
-                (v) => v === values || 'Password should match'
+                (v) => v === values || 'Las contraseñas deben ser iguales'
             }
         } 
     }

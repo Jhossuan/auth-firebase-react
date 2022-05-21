@@ -32,44 +32,49 @@ const Register = () => {
   <div>
     <TitleForm text='Register' />
     <form onSubmit={handleSubmit(onSubmit)}>
+
       <InputsForm
       type="text"
-      placeholder="Enter your email..."
+      placeholder="Ingresa tu email"
       {...register('email',{
         required,
         pattern: patternEmail
       })}
       label='Ingresa tu email'
+      error={errors.email}
       >
       <FormError error={errors.email}/>
       </InputsForm>
 
       <InputsForm
       type="password"
-      placeholder="Enter your password..."
+      placeholder="Contraseña"
       {...register('password',{
         required,
         minLength,
         validate: validateTrim,
       })}
-      label='Ingresa tu password'
+      label='Ingresa tu contraseña'
+      error={errors.password}
       >
       <FormError error={errors.password}/>
       </InputsForm>
 
       <InputsForm
       type="password"
-      placeholder="Repeat your password..."
+      placeholder="Repite tu contraseña"
       {...register('repassword',{
         required,
         validate: validateEquals(getValues('password'))
       })}
-      label='Repite tu password'
+      label='Repite tu contraseña'
+      error={errors.repassword}
       >
       <FormError error={errors.repassword}/>
       </InputsForm>
 
       <Button type='submit' text='Registrarse'/>
+
     </form>
   </div>
   );

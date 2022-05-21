@@ -37,24 +37,26 @@ const Login = () => {
 
         <InputsForm
         type="email"
-        placeholder="Enter your email..."
+        placeholder="Ingresa tu email"
         {...register('email',{
           required,
           pattern: patternEmail,
         })}
         label='Ingresa tu email'
+        error={errors.email}
         >
         <FormError error={errors.email}/>
         </InputsForm>
 
         <InputsForm
         type="password"
-        placeholder="Enter your password..."
+        placeholder="Contraseña"
         {...register('password',{
           required,
           minLength,
         })}
-        label='Ingresa tu password'
+        label='Ingresa tu contraseña'
+        error={errors.password}
         >
         <FormError error={errors.password}/>
         </InputsForm>
