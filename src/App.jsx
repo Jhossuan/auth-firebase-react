@@ -5,6 +5,7 @@ import Home from './routes/Home'
 import NotFound from './routes/NotFound'
 import Navbar from './components/Navbar'
 import RequireAuth from './components/RequireAuth'
+import LayoutForms from './components/LayoutForms'
 
 function App() {
 
@@ -18,8 +19,10 @@ function App() {
             <Home/>
           </RequireAuth>
         }/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/register' element={<Register/>}/>
+        <Route path='/' element={<LayoutForms/>}>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/register' element={<Register/>}/>
+        </Route>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
     </div>
