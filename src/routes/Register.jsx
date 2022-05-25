@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { UserContext } from "../context/UserProvider"
-import { useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { erroresFirebase } from "../utils/erroresFirebase"
 import FormError from "../components/FormError"
@@ -8,8 +8,10 @@ import TitleForm from "../components/TitleForm"
 import { formValidate } from "../utils/formValidate"
 import InputsForm from "../components/InputsForm"
 import Button from "../components/Button"
+import ButtonLoading from "../components/ButtonLoading"
 
 const Register = () => {
+  const [loading, setLoading] = useState(false)
   const { registerUser } = useContext(UserContext)
   const { required, patternEmail, minLength, validateEquals, validateTrim } = formValidate()
   const navigate = useNavigate()
@@ -18,6 +20,7 @@ const Register = () => {
 
   const onSubmit = async({email, password}) => {
     try {
+      setLoading(true)
       await registerUser(email, password)
       console.log('Usuario creado correctamente', email,password)
       navigate('/login')
@@ -25,6 +28,8 @@ const Register = () => {
       console.log(error.code)
       const { code, message } = erroresFirebase(error.code)
       setError(code,{message})
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -73,9 +78,14 @@ const Register = () => {
       <FormError error={errors.repassword}/>
       </InputsForm>
 
-      <Button type='submit' text='Registrarse'/>
+      {
+          loading ? <ButtonLoading /> : <Button type='submit' text='Registrarse'/>  
+      }
 
     </form>
+    <small>
+      Ya tienes una cuenta? Ingresa <NavLink to="/login">Aqui</NavLink>
+    </small>
   </div>
   );
 }

@@ -1,7 +1,8 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { NavLink, useNavigate } from "react-router-dom"
 import Button from "../components/Button"
+import ButtonLoading from "../components/ButtonLoading"
 import FormError from "../components/FormError"
 import InputsForm from "../components/InputsForm"
 import TitleForm from "../components/TitleForm"
@@ -11,7 +12,9 @@ import { formValidate } from "../utils/formValidate"
 
 const Login = () => {
 
-  const {loginUser, setActive} = useContext(UserContext)
+  const [loading, setLoading] = useState(false)
+
+  const {loginUser} = useContext(UserContext)
   const { register, handleSubmit, setError, formState: { errors } } = useForm()
   const { required, patternEmail, minLength } = formValidate()
 
@@ -19,14 +22,15 @@ const Login = () => {
 
   const onSubmit = async({email, password}) => {
     try {
-      await loginUser(email, password)
-      console.log('Sesion iniciada correctamente...')
-      navigate('/')
-      setActive(true)
+        setLoading(true)
+        await loginUser(email, password)
+        navigate('/')
     } catch (error) {
-      console.log(error.code)
-      const { code, message } = erroresFirebase(error.code)
-      setError(code,{message})
+        console.log(error.code)
+        const { code, message } = erroresFirebase(error.code)
+        setError(code,{message})
+    } finally {
+        setLoading(false);
     }
   }
 
@@ -60,8 +64,9 @@ const Login = () => {
         >
         <FormError error={errors.password}/>
         </InputsForm>
-
-        <Button type='submit' text='Ingresar'/>
+        {
+          loading ? <ButtonLoading /> : <Button type='submit' text='Ingresar'/>  
+        }
 
       </form>
       <small>
