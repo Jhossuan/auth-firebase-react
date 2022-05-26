@@ -4,7 +4,7 @@ const NotFound = () => {
   return (
     <div className="container mx-auto">
       Esta pagina no existe, ups!
-      <Link to='/'>Ir al home</Link>
+      <Link to='/' className="text-red-600">Ir al home</Link>
     </div>
   )
 }

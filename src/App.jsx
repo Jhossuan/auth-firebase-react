@@ -7,8 +7,8 @@ import NotFound from './routes/NotFound'
 import Perfil from './routes/Perfil'
 
 import Navbar from './components/Navbar'
-import RequireAuth from './components/RequireAuth'
-import LayoutForms from './components/LayoutForms'
+import RequireAuth from './components/layouts/LayoutRequireAuth'
+import LayoutForms from './components/layouts/LayoutForms'
 import { useContext } from 'react'
 import { UserContext } from './context/UserProvider'
 
